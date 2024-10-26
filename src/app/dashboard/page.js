@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Container, Grid, Card, CardMedia, CardContent, Typography, Box, List, ListItem, ListItemText, Divider, Avatar, Link, IconButton, Button } from '@mui/material'; // Ensure Link and Button are imported
+import { Container, Grid, Card, CardMedia, CardContent, Typography, Box, List, ListItem, ListItemText, Divider, Avatar, Link, IconButton, Button } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CloseIcon from '@mui/icons-material/Close'; 
+import CloseIcon from '@mui/icons-material/Close';
 
 // Define your theme
 const theme = createTheme({
@@ -30,32 +30,27 @@ const theme = createTheme({
 });
 
 function Dashboard() {
-  // Use state to manage events
   const [events, setEvents] = useState([
     { title: '10TH UC CCS CONGRESS 2024', image: '/img/10thcongress.png' },
     { title: 'Capstone exhibits', image: '/img/capstone.png' },
     { title: 'Intramurals 2024', image: '/img/intrams.png' },
   ]);
 
-  // Use state to manage recently finished events
   const [recentlyFinished, setRecentlyFinished] = useState([
     { title: 'Mental Health Awareness Month', image: '/img/mentall.png' },
     { title: 'General Assembly', image: '/img/assembly.png' },
   ]);
 
-  // Handle clicking on an event
   const handleEventClick = (event) => {
     alert(`You clicked on: ${event}`);
   };
 
-  // Handle removing an event with confirmation
   const handleRemoveEvent = (eventIndex) => {
     if (window.confirm("Are you sure you want to remove this event?")) {
       setEvents((prev) => prev.filter((_, index) => index !== eventIndex));
     }
   };
 
-  // Handle removing a recently finished event with confirmation
   const handleRemoveRecentlyFinishedEvent = (eventIndex) => {
     if (window.confirm("Are you sure you want to remove this event?")) {
       setRecentlyFinished((prev) => prev.filter((_, index) => index !== eventIndex));
@@ -70,7 +65,7 @@ function Dashboard() {
           flexDirection: 'column',
           minHeight: '100vh',
           backgroundColor: '#fff',
-          overflow: 'hidden',
+          overflowY: 'auto', // Allow page scrolling
         }}
       >
         <Container maxWidth="xl" sx={{ padding: 0 }}>
@@ -139,20 +134,44 @@ function Dashboard() {
                 {events.map((event, index) => (
                   <Grid item xs={12} sm={6} md={4} key={index}>
                     <Card
-                      sx={{ border: '1px solid #1976d2', borderRadius: 2 }}
+                      sx={{
+                        border: '1px solid #1976d2',
+                        borderRadius: 2,
+                        position: 'relative',
+                        height: '300px', // Set a fixed height for uniformity
+                      }}
                     >
                       <CardMedia
                         component="img"
                         height="140"
-                        image={event.image} // Use the image path from event object
+                        image={event.image}
                         alt={`Event ${index + 1}`}
                       />
+                      {/* Close button at the top right */}
+                      <IconButton
+                        aria-label="remove"
+                        size="small"
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent card click
+                          handleRemoveEvent(index);
+                        }}
+                        sx={{
+                          position: 'absolute',
+                          top: 8,
+                          right: 8,
+                          color: '#f00',
+                          backgroundColor: '#fff',
+                          borderRadius: '50%', // Makes it circular
+                          padding: 1,
+                        }}
+                      >
+                        <CloseIcon />
+                      </IconButton>
                       <CardContent>
                         <Typography variant="body1" component="div" sx={{ color: '#000' }}>
                           {event.title}
                         </Typography>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-                          {/* Action Buttons */}
                           <Button 
                             variant="contained" 
                             size="small" 
@@ -160,17 +179,6 @@ function Dashboard() {
                           >
                             View Details
                           </Button>
-                          <IconButton
-                            aria-label="remove"
-                            size="small"
-                            onClick={(e) => {
-                              e.stopPropagation(); // Prevent card click
-                              handleRemoveEvent(index);
-                            }}
-                            sx={{ color: '#f00' }}
-                          >
-                            <CloseIcon />
-                          </IconButton>
                         </Box>
                       </CardContent>
                     </Card>
@@ -188,30 +196,42 @@ function Dashboard() {
                 {recentlyFinished.map((event, index) => (
                   <Grid item xs={12} sm={6} md={4} key={index}>
                     <Card
-                      sx={{ border: '1px solid #1976d2', borderRadius: 2 }}
+                      sx={{
+                        border: '1px solid #1976d2',
+                        borderRadius: 2,
+                        position: 'relative',
+                        height: '300px', // Set a fixed height for uniformity
+                      }}
                     >
                       <CardMedia
                         component="img"
                         height="140"
-                        image={event.image} // Use the image path from event object
+                        image={event.image}
                         alt={`Recently Finished Event ${index + 1}`}
                       />
+                      <IconButton
+                        aria-label="remove"
+                        size="small"
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent card click
+                          handleRemoveRecentlyFinishedEvent(index);
+                        }}
+                        sx={{
+                          position: 'absolute',
+                          top: 8,
+                          right: 8,
+                          color: '#f00',
+                          backgroundColor: '#fff',
+                          borderRadius: '50%',
+                          padding: 1,
+                        }}
+                      >
+                        <CloseIcon />
+                      </IconButton>
                       <CardContent>
                         <Typography variant="body1" component="div" sx={{ color: '#000' }}>
                           {event.title}
                         </Typography>
-                        {/* Remove button */}
-                        <IconButton
-                          aria-label="remove"
-                          size="small"
-                          onClick={(e) => {
-                            e.stopPropagation(); // Prevent card click
-                            handleRemoveRecentlyFinishedEvent(index);
-                          }}
-                          sx={{ float: 'right', color: '#f00' }}
-                        >
-                          <CloseIcon />
-                        </IconButton>
                       </CardContent>
                     </Card>
                   </Grid>
@@ -255,7 +275,6 @@ function Dashboard() {
                   {events.map((event, index) => (
                     <ListItem key={index}>
                       <ListItemText primary={event.title} sx={{ color: '#000' }} />
-                      {/* Remove button */}
                       <IconButton
                         aria-label="remove"
                         size="small"
@@ -271,21 +290,12 @@ function Dashboard() {
                 <Divider sx={{ my: 2 }} />
 
                 <Typography variant="h6" sx={{ color: '#000', textAlign: 'center' }}>
-                  Recently Finished
+                  Recent Activity
                 </Typography>
                 <List sx={{ overflowY: 'auto', maxHeight: '30vh' }}>
                   {recentlyFinished.map((event, index) => (
                     <ListItem key={index}>
                       <ListItemText primary={event.title} sx={{ color: '#000' }} />
-                      {/* Remove button */}
-                      <IconButton
-                        aria-label="remove"
-                        size="small"
-                        onClick={() => handleRemoveRecentlyFinishedEvent(index)}
-                        sx={{ color: '#f00' }}
-                      >
-                        <CloseIcon />
-                      </IconButton>
                     </ListItem>
                   ))}
                 </List>
