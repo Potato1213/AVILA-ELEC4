@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Container, Grid, Card, CardMedia, CardContent, Typography, Box, List, ListItem, ListItemText, Divider, Avatar, Link, IconButton, Button } from '@mui/material';
+import { Container, Grid, Card, CardMedia, CardContent, Typography, Box, Divider, IconButton, Button, Link, Avatar, List, ListItem, ListItemText } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
+
 
 // Define your theme
 const theme = createTheme({
@@ -31,19 +32,15 @@ const theme = createTheme({
 
 function Dashboard() {
   const [events, setEvents] = useState([
-    { title: '10TH UC CCS CONGRESS 2024', image: '/img/10thcongress.png' },
-    { title: 'Capstone exhibits', image: '/img/capstone.png' },
-    { title: 'Intramurals 2024', image: '/img/intrams.png' },
+    { title: '10TH UC CCS CONGRESS 2024', image: '/img/10thcongress.png', href: 'congress2024' },
+    { title: 'Capstone exhibits', image: '/img/capstone.png', href: '/event/capstone' },
+    { title: 'Intramurals 2024', image: '/img/intrams.png', href: '/event/intramurals2024' },
   ]);
 
   const [recentlyFinished, setRecentlyFinished] = useState([
-    { title: 'Mental Health Awareness Month', image: '/img/mentall.png' },
-    { title: 'General Assembly', image: '/img/assembly.png' },
+    { title: 'Mental Health Awareness Month', image: '/img/mentall.png', href: '/event/mentalhealth' },
+    { title: 'General Assembly', image: '/img/assembly.png', href: '/event/assembly'  },
   ]);
-
-  const handleEventClick = (event) => {
-    alert(`You clicked on: ${event}`);
-  };
 
   const handleRemoveEvent = (eventIndex) => {
     if (window.confirm("Are you sure you want to remove this event?")) {
@@ -65,7 +62,7 @@ function Dashboard() {
           flexDirection: 'column',
           minHeight: '100vh',
           backgroundColor: '#fff',
-          overflowY: 'auto', // Allow page scrolling
+          overflowY: 'auto',
         }}
       >
         <Container maxWidth="xl" sx={{ padding: 0 }}>
@@ -86,7 +83,7 @@ function Dashboard() {
                 left: 0,
                 top: 0,
                 bottom: 0,
-                width: '16%',
+                width: '10%',
               }}
             >
               <Box sx={{ textAlign: 'center', mb: 2, mt: 2 }}>
@@ -101,7 +98,6 @@ function Dashboard() {
                 >
                   Dashboard
                 </Link>
-                <Divider />
                 <Link
                   href="#"
                   variant="button"
@@ -128,7 +124,6 @@ function Dashboard() {
               <Typography variant="h5" gutterBottom sx={{ color: '#000' }}>
                 Dashboard
               </Typography>
-              <Divider />
               <Grid container spacing={2} marginTop={2}>
                 {/* Event Cards */}
                 {events.map((event, index) => (
@@ -138,14 +133,14 @@ function Dashboard() {
                         border: '1px solid #1976d2',
                         borderRadius: 2,
                         position: 'relative',
-                        height: '300px', // Set a fixed height for uniformity
+                        height: '300px',
                       }}
                     >
                       <CardMedia
                         component="img"
                         height="140"
                         image={event.image}
-                        alt={`Event ${index + 1}`}
+                        alt={event.title}
                       />
                       {/* Close button at the top right */}
                       <IconButton
@@ -161,21 +156,23 @@ function Dashboard() {
                           right: 8,
                           color: '#f00',
                           backgroundColor: '#fff',
-                          borderRadius: '50%', // Makes it circular
+                          borderRadius: '50%',
                           padding: 1,
                         }}
                       >
                         <CloseIcon />
                       </IconButton>
                       <CardContent>
-                        <Typography variant="body1" component="div" sx={{ color: '#000' }}>
-                          {event.title}
-                        </Typography>
+                        <Link href={event.href} style={{ textDecoration: 'none' }}>
+                          <Typography variant="body1" component="div" sx={{ color: '#000' }}>
+                            {event.title}
+                          </Typography>
+                        </Link>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
                           <Button 
                             variant="contained" 
                             size="small" 
-                            onClick={() => handleEventClick(event.title)}
+                            onClick={() => alert(`You clicked on: ${event.title}`)}
                           >
                             View Details
                           </Button>
@@ -200,7 +197,7 @@ function Dashboard() {
                         border: '1px solid #1976d2',
                         borderRadius: 2,
                         position: 'relative',
-                        height: '300px', // Set a fixed height for uniformity
+                        height: '300px',
                       }}
                     >
                       <CardMedia
@@ -229,9 +226,11 @@ function Dashboard() {
                         <CloseIcon />
                       </IconButton>
                       <CardContent>
-                        <Typography variant="body1" component="div" sx={{ color: '#000' }}>
-                          {event.title}
-                        </Typography>
+                        <Link href={event.href} style={{ textDecoration: 'none' }}>
+                          <Typography variant="body1" component="div" sx={{ color: '#000' }}>
+                            {event.title}
+                          </Typography>
+                        </Link>
                       </CardContent>
                     </Card>
                   </Grid>
@@ -262,19 +261,19 @@ function Dashboard() {
             >
               <Box sx={{ mb: 2, textAlign: 'center' }}>
                 <Avatar sx={{ bgcolor: 'primary.main', width: 56, height: 56, mx: 'auto' }}>S</Avatar>
-                <Typography variant="body1" sx={{ mt: 1, color: '#000' }}>
+                <Typography variant="body1" sx={{ mt: 1 }}>
                   Student BSIT
                 </Typography>
               </Box>
 
               <Box sx={{ width: '100%', paddingX: 2 }}>
-                <Typography variant="h6" sx={{ color: '#000', textAlign: 'center' }}>
+                <Typography variant="h6" sx={{ textAlign: 'center' }}>
                   Upcoming Events
                 </Typography>
                 <List sx={{ overflowY: 'auto', maxHeight: '30vh' }}>
                   {events.map((event, index) => (
                     <ListItem key={index}>
-                      <ListItemText primary={event.title} sx={{ color: '#000' }} />
+                      <ListItemText primary={event.title} />
                       <IconButton
                         aria-label="remove"
                         size="small"
@@ -289,13 +288,13 @@ function Dashboard() {
 
                 <Divider sx={{ my: 2 }} />
 
-                <Typography variant="h6" sx={{ color: '#000', textAlign: 'center' }}>
+                <Typography variant="h6" sx={{ textAlign: 'center' }}>
                   Recent Activity
                 </Typography>
                 <List sx={{ overflowY: 'auto', maxHeight: '30vh' }}>
                   {recentlyFinished.map((event, index) => (
                     <ListItem key={index}>
-                      <ListItemText primary={event.title} sx={{ color: '#000' }} />
+                      <ListItemText primary={event.title} />
                     </ListItem>
                   ))}
                 </List>

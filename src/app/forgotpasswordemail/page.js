@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { TextField, Button, Typography, Box, Container, CssBaseline, Link } from '@mui/material';
+import { TextField, Button, Typography, Box, Container, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Link from 'next/link';  // Import Link from Next.js for navigation
 
 const theme = createTheme({
   palette: {
@@ -42,13 +43,13 @@ function ForgotPasswordEmail() {
         }}
       >
         <Container maxWidth="xs" sx={{
-          mt: 4, // Reduced margin-top to bring the form higher
+          mt: 4,
           backgroundColor: '#fff',
           padding: 4,
           borderRadius: 4,
-          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', // Softer shadow for card effect
+          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
           width: '100%',
-          textAlign: 'center', // Center align the content
+          textAlign: 'center',
         }}>
           <CssBaseline />
           <img src="/img/uclmlogo.png" alt="University Logo" style={{ marginBottom: '16px', width: '80px' }} />
@@ -56,7 +57,7 @@ function ForgotPasswordEmail() {
             Forgot Password
           </Typography>
           <Typography variant="body1" sx={{ color: '#1976d2', mb: 3 }}>
-           Enter the code that was sent to the email address
+            Enter the code that was sent to the email address
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
@@ -69,18 +70,21 @@ function ForgotPasswordEmail() {
               autoComplete="email"
               variant="outlined"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{
-                mt: 3, mb: 2,
-                backgroundColor: '#1976d2',
-                ':hover': { backgroundColor: '#1565c0' } // Slightly darker on hover
-              }}
-            >
-              Verify Code
-            </Button>
+            {/* Redirect to forgotpasswordchange page */}
+            <Link href="/forgotpasswordchange" passHref>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{
+                  mt: 3, mb: 2,
+                  backgroundColor: '#1976d2',
+                  ':hover': { backgroundColor: '#1565c0' } // Slightly darker on hover
+                }}
+              >
+                Verify Code
+              </Button>
+            </Link>
             <Box sx={{ mt: 2 }}>
               <Link href="/login" variant="body2" sx={{ color: '#1976d2', textDecoration: 'none', ':hover': { textDecoration: 'underline' } }}>
                 Remember your password? Sign in

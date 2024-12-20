@@ -42,13 +42,13 @@ function PasswordChangeSuccess() {
         }}
       >
         <Container maxWidth="xs" sx={{
-          mt: 4, // Reduced margin-top to bring the form higher
+          mt: 4,
           backgroundColor: '#fff',
           padding: 4,
           borderRadius: 4,
-          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', // Softer shadow for card effect
+          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
           width: '100%',
-          textAlign: 'center', // Center align the content
+          textAlign: 'center',
         }}>
           <CssBaseline />
           <img src="/img/uclmlogo.png" alt="University Logo" style={{ marginBottom: '16px', width: '80px' }} />

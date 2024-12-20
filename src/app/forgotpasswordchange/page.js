@@ -21,7 +21,7 @@ const theme = createTheme({
   },
 });
 
-function ChangePassword() { 
+function ChangePassword() {
   // Set the background image for the page
   const backgroundImage = '/img/uclmloginbackground.png'; // Path to your background image
   const backgroundColor = '#f0f2f5'; // Fallback background color
@@ -92,18 +92,21 @@ function ChangePassword() {
               autoComplete="new-password"
               variant="outlined"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{
-                mt: 3, mb: 2,
-                backgroundColor: '#1976d2',
-                ':hover': { backgroundColor: '#1565c0' } // Slightly darker on hover
-              }}
-            >
-              Change Password
-            </Button>
+            {/* Change Password Button */}
+            <Link href="/forgotpasswordfinished" passHref>
+              <Button
+                type="button" // Keep the type as 'button' to prevent form submission
+                fullWidth
+                variant="contained"
+                sx={{
+                  mt: 3, mb: 2,
+                  backgroundColor: '#1976d2',
+                  ':hover': { backgroundColor: '#1565c0' } // Slightly darker on hover
+                }}
+              >
+                Change Password
+              </Button>
+            </Link>
             <Box sx={{ mt: 2 }}>
               <Link href="/login" variant="body2" sx={{ color: '#1976d2', textDecoration: 'none', ':hover': { textDecoration: 'underline' } }}>
                 Remembered your old password? Sign in
